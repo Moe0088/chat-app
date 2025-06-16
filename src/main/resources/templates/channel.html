@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:inline="javascript">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${channel.name} + ' Channel'">Channel</title>
+</head>
+<body>
+
+<h1 th:text="${channel.name}"></h1>
+
+<div id="messageList" >
+    <div th:each="message : ${messages}">
+
+    <p>
+        <!-- THIS must refer to message.user, not user -->
+        <strong th:text="${message.user.name}">Sender</strong>:
+        <span th:text="${message.content}">Message</span>
+    </p>
+</div>
+</div>
+
+<form id="messageForm" th:action="@{/channel/{channelId}(channelId=${channel.id})}"
+      method="post">
+    <textarea id="textArea" name="content"
+              placeholder="Write your message here…"></textarea>
+    <button type="submit" id="submitBtn">Submit</button>
+    <button type="button" id="backBtn">Back to Main Page</button>
+</form>
+<script>
+    const channelId = /*[[${channel.id}]]*/ '0';
+</script>
+<script src="/channel.js"></script>
+
+</body>
+</html>
