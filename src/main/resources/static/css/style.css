@@ -1,0 +1,92 @@
+/* 1) Overall page and flex layout */
+.welcome-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: #f4f7f9;
+}
+
+.chat-app {
+    display: flex;
+    height: 100vh;
+    font-family: sans-serif;
+    background: #f4f7f9;
+}
+
+/* 2) Sidebar styling */
+.sidebar {
+    width: 250px;
+    background: #2f3136;
+    color: white;
+    padding: 1rem;
+}
+
+/* 3) Main chat area */
+.chat-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 4) Header */
+.chat-header {
+    padding: 1rem;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+/* 5) Messages scrollable region */
+.messages {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    background: #e5ddd5;
+}
+
+/* 6) Message bubbles */
+.messages p {
+    max-width: 60%;
+    margin-bottom: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    line-height: 1.3;
+}
+
+/* 7) Distinguish self vs other */
+.messages p.self {
+    background: #dcf8c6;
+    margin-left: auto;
+}
+
+.messages p.other {
+    background: white;
+    margin-right: auto;
+}
+
+/* 8) Composer (input) bar */
+.composer {
+    display: flex;
+    padding: 0.5rem;
+    border-top: 1px solid #ddd;
+    background: white;
+}
+
+.composer textarea {
+    flex: 1;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.5rem;
+    resize: none;
+    margin-right: 0.5rem;
+}
+
+.composer button {
+    background: #007a5a;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}

@@ -1,9 +1,8 @@
-
 // Grab the container that holds all messages, so we can replace its contents during polling
 let messageList = document.getElementById("messageList");
-
+const form = document.getElementById("messageForm");
 // Grab the textarea where the user types their message
-let input = document.getElementById("textArea");
+const input = document.getElementById("textArea");
 
 let BackButton = document.getElementById("backBtn")
 
@@ -14,7 +13,7 @@ BackButton.addEventListener('click', () => {
 // Listen for the form’s “submit” event instead of the button’s click.
 // This also catches pressing “Enter” inside the textarea.
 
-input.addEventListener('click', (e) => {
+form.addEventListener('submit', (e) => {
     // Stop the browser’s default behavior (sending a POST and reloading the page)
     e.preventDefault();
 
@@ -40,13 +39,14 @@ input.addEventListener('click', (e) => {
                 return;
             }
             // On success, clear the textarea so the user can type their next message
-            textarea.value = '';
+            input.value = '';
         })
         .catch(err => // If the network call itself failed, log it for debugging
             console.error("Network error:", err));
 
 
 });
+
 function fetchMessages() {
     console.log("Polling for messages...");
     fetch(`/channel/${channelId}/messages`)
@@ -67,6 +67,7 @@ function fetchMessages() {
             console.error("Failed to fetch messages:", error);
         });
 }
+
 // Run once
 fetchMessages();
 

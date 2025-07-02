@@ -3,33 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${channel.name} + ' Channel'">Channel</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
+<div class="chat-app">
+    <aside class="sidebar">
+        <h2 th:text="'# ' + ${channel.name}"># general</h2>
+    </aside>
 
-<h1 th:text="${channel.name}"></h1>
+    <main class="chat-main">
+        <!-- Header -->
+        <header class="chat-header" th:text="${channel.name}">general</header>
 
-<div id="messageList" >
-    <div th:each="message : ${messages}">
+        <!-- Message list -->
+        <div id="messageList" class="messages">
+            <div th:each="message : ${messages}">
+                <p>
+                    <strong th:text="${message.user.name}">Sender</strong>:
+                    <span th:text="${message.content}">Message</span>
+                </p>
+            </div>
+        </div>
 
-    <p>
-        <!-- THIS must refer to message.user, not user -->
-        <strong th:text="${message.user.name}">Sender</strong>:
-        <span th:text="${message.content}">Message</span>
-    </p>
-</div>
-</div>
+        <!-- Composer -->
+        <form id="messageForm" class="composer"
+              th:action="@{/channel/{channelId}(channelId=${channel.id})}"
+              method="post">
+        <textarea id="textArea" name="content"
+                  placeholder="Write your message here…"></textarea>
+            <button type="submit" id="submitBtn">Submit</button>
+            <button type="button" id="backBtn">Back to Main Page</button>
+        </form>
+    </main>
+</div> <!-- /.chat-app -->
 
-<form id="messageForm" th:action="@{/channel/{channelId}(channelId=${channel.id})}"
-      method="post">
-    <textarea id="textArea" name="content"
-              placeholder="Write your message here…"></textarea>
-    <button type="submit" id="submitBtn">Submit</button>
-    <button type="button" id="backBtn">Back to Main Page</button>
-</form>
-<script>
+<!-- Bake in the channelId for JS -->
+<script th:inline="javascript">
     const channelId = /*[[${channel.id}]]*/ '0';
 </script>
-<script src="/channel.js"></script>
-
+<!-- Load your polling & send-logic -->
+<script th:src="@{/js/channel.js}"></script>
 </body>
 </html>

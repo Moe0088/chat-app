@@ -1,18 +1,14 @@
 package com.coderscampus.domain;
 
-import jakarta.persistence.*;
+
 
 import java.util.List;
 
-@Entity
-@Table(name="channels")
+
 public class Channel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
-    @Column(unique = true, nullable = false)
     private String name;
-    @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Message> messages;
 
     public Channel(Long id, String name, List<Message> messages) {

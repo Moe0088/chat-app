@@ -1,25 +1,13 @@
 package com.coderscampus.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "messages")
+
 public class Message {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
     private LocalDateTime timestamp;
-    @ManyToOne
-    @JoinColumn(name = "channel_id")
-    @JsonIgnoreProperties({"messages"})
     private Channel channel;
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    @JsonIgnoreProperties({"messages"})
     private User user;
 
 

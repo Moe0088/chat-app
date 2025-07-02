@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Welcome to the Chat App</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
-
+<div class="welcome-page">
 <h1>Welcome to the Chat App!</h1>
 
 <!-- Display error or info message -->
@@ -13,40 +14,21 @@
     <p style="color: red;" th:text="${message}"></p>
 </div>
 
-<!-- Create Channel form -->
-<form action="/create-channel" method="post">
-    <input type="text" name="newChannelName" placeholder="New Channel Name"/>
-    <button type="submit">Create Channel</button>
-</form>
 
-<!-- Join Existing Channel form -->
-<form action="/" method="post" id="welcomeForm">
+<!-- Join  "general" Channel  -->
+<form th:action="@{/}" method="post" id="welcomeForm">
+    <div>
 
-<div>
+        <label for="name">Enter your name:</label><br>
+        <input type="text" id="name" name="name" th:value="${user.name}" autocomplete="off"/>
+        <span id="nameError" style="color: red;"></span>
+    </div>
 
-    <label for="name">Enter your name:</label><br>
-    <input type="text" id="name" name="name" th:value="${user.name}" autocomplete="off"/>
-    <span id="nameError"></span>
-</div>
+    <button type="submit">Join</button>
 
-
-<div>
-    <label for="channel">Select a Channel:</label>
-    <select name="channelId" id="channel" th:if="${#lists.size(channels) > 0}">
-        <option th:each="channel : ${channels}"
-                th:value="${channel.id}"
-                th:text="${channel.name}">
-        </option>
-    </select>
-
-    <!-- If no channels exist -->
-    <span th:if="${#lists.isEmpty(channels)}">
-        No channels available. Please contact admin.
-    </span>
-</div>
-    <button type="submit" th:attr="disabled=${#lists.isEmpty(channels)}">Join</button>
 </form>
 <script type="text/javascript" src="/welcome.js">
 </script>
+</div>
 </body>
 </html>
