@@ -10,9 +10,17 @@ BackButton.addEventListener('click', () => {
     window.location.href = '/';
 });
 
+
+input.addEventListener('keydown', e => {
+    // if the user pressed ENTER without holding SHIFT
+    if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();               // don’t insert a newline
+        form.dispatchEvent(new Event('submit', {cancelable: true}));
+        // this will re-use your form.submit handler (the one that does the AJAX fetch)
+    }
+});
 // Listen for the form’s “submit” event instead of the button’s click.
 // This also catches pressing “Enter” inside the textarea.
-
 form.addEventListener('submit', (e) => {
     // Stop the browser’s default behavior (sending a POST and reloading the page)
     e.preventDefault();
@@ -21,7 +29,10 @@ form.addEventListener('submit', (e) => {
     const content = input.value.trim();
     console.log(content);
     // If there’s nothing left after trimming, do nothing (don’t send blank messages)
-    if (!content) return;
+    if (!content) {
+
+        return;
+    }
 
     // Send the message to the server in the background using fetch()
     // The URL includes the current channelId so the server knows where to store it.

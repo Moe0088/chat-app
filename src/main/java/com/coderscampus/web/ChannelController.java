@@ -47,8 +47,8 @@ public class ChannelController {
             HttpServletRequest request) {
 
         if (message.getContent() == null || message.getContent().trim().isEmpty()) {
-            // Validate non-empty content
-            throw new IllegalArgumentException("Message content cannot be empty");
+
+           return "redirect:/channel/" + channelId;
         }
 
         Channel channel = channelService.findChannelById(channelId);  // Look up the channel
